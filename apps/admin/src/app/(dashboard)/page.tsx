@@ -6,6 +6,8 @@ import TodoList from "@/components/TodoList";
 import { auth } from "@clerk/nextjs/server";
 import { OrderChartType } from "@repo/types";
 
+export const dynamic = 'force-dynamic';
+
 const Homepage = async () => {
   const { getToken } = await auth();
   const token = await getToken();
