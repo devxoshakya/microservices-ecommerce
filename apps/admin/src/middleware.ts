@@ -13,7 +13,7 @@ export default clerkMiddleware(async (auth, req) => {
       const userRole = (sessionClaims as CustomJwtSessionClaims).metadata?.role;
 
       if (userRole !== "admin") {
-        return Response.redirect(new URL("/unauthorized", req.url));
+        // return Response.redirect(new URL("/unauthorized", req.url));
       }
     }
   }

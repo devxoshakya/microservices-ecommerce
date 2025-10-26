@@ -1,0 +1,2 @@
+# keep example .env files
+.env.example

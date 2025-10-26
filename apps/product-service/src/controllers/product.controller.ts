@@ -48,6 +48,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
+  console.log("Deleting product with ID:", req.params);
   const { id } = req.params;
 
   const deletedProduct = await prisma.product.delete({

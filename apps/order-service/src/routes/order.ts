@@ -31,6 +31,16 @@ export const orderRoute = async (fastify: FastifyInstance) => {
 
       // { month: "April", total: 173, successful: 100 }
 
+      // await Order.create({
+      //   userId: "user_123456",
+      //   email: "customer@example.com",
+      //   amount: 1299,
+      //   status: "success",
+      //   products: [{ name: "Urban Canvas Tee", quantity: 1, price: 1299 }],
+      //   // remove createdAt / updatedAt or let Mongoose auto-set
+      // });
+
+
       const raw = await Order.aggregate([
         {
           $match: {
