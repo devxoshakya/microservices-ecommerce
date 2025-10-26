@@ -1,7 +1,4 @@
-import Stripe from "stripe";
+// Mock payment service - No Stripe integration
+// This is a simple mock for Cash on Delivery payments
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2025-08-27.basil" as any,
-});
-
-export default stripe;
+export default null;

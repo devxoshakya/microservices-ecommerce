@@ -1,17 +1,18 @@
 import { StripeProductType } from "@repo/types";
-import stripe from "./stripe";
+
+// Mock product management - Store products in memory
+const products = new Map<string, { name: string; price: number }>();
 
 export const createStripeProduct = async (item: StripeProductType) => {
   try {
-    const res = await stripe.products.create({
-      id: item.id,
+    // Store product in memory
+    products.set(item.id, {
       name: item.name,
-      default_price_data: {
-        currency: "usd",
-        unit_amount: item.price * 100,
-      },
+      price: item.price,
     });
-    return res;
+    
+    console.log(`Product created: ${item.id} - ${item.name}`);
+    return { id: item.id, name: item.name, price: item.price };
   } catch (error) {
     console.log(error);
     return error;
@@ -20,20 +21,20 @@ export const createStripeProduct = async (item: StripeProductType) => {
 
 export const getStripeProductPrice = async (productId: number) => {
   try {
-    const res = await stripe.prices.list({
-      product: productId.toString(),
-    });
-    return res.data[0]?.unit_amount;
+    const product = products.get(productId.toString());
+    // Return price in cents (multiply by 100 for consistency with Stripe format)
+    return product ? product.price * 100 : 0;
   } catch (error) {
     console.log(error);
-    return error;
+    return 0;
   }
 };
 
 export const deleteStripeProduct = async (productId: number) => {
   try {
-    const res = await stripe.products.del(productId.toString());
-    return res;
+    products.delete(productId.toString());
+    console.log(`Product deleted: ${productId}`);
+    return { id: productId, deleted: true };
   } catch (error) {
     console.log(error);
     return error;
